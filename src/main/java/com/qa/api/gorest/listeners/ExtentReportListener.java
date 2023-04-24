@@ -13,18 +13,12 @@ import org.testng.ITestResult;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.ChartLocation;
-import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+public class ExtentReportListener implements ITestListener {
 
-
-public class ExtentReportListener  implements ITestListener {
-
-	
 	private static final String OUTPUT_FOLDER = "./build/";
-	private static final String FILE_NAME = "API TestExecutionReport.html";
+	private static final String FILE_NAME = "TestExecutionReport.html";
 
 	private static ExtentReports extent = init();
 	public static ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
@@ -44,18 +38,17 @@ public class ExtentReportListener  implements ITestListener {
 			}
 		}
 		
-		
-		ExtentHtmlReporter	 htmlreporter = new ExtentHtmlReporter(OUTPUT_FOLDER + FILE_NAME);
-		htmlreporter.config().setDocumentTitle("API Automation Test Results");
-		htmlreporter.config().setReportName("API Automation Test Results");
-		htmlreporter.config().setTestViewChartLocation(ChartLocation.TOP);
-		htmlreporter.config().setTheme(Theme.STANDARD);
-		
-		extent = new ExtentReports();
-		extent.attachReporter(htmlreporter);
-		extent.setReportUsesManualConfiguration(true);
+		extentReports = new ExtentReports();
+		ExtentSparkReporter reporter = new ExtentSparkReporter(OUTPUT_FOLDER + FILE_NAME);
+		reporter.config().setReportName("Automation Test Results");
+		extentReports.attachReporter(reporter);
+		extentReports.setSystemInfo("System", "MAC");
+		extentReports.setSystemInfo("Author", "Naveen AutomationLabs");
+		extentReports.setSystemInfo("Build#", "1.1");
+		extentReports.setSystemInfo("Team", "Go Rest CO.In");
+		//extentReports.setSystemInfo("ENV NAME", System.getProperty("env"));
 
-		return extent;
+		return extentReports;
 	}
 
 	public synchronized void onStart(ITestContext context) {
@@ -93,16 +86,19 @@ public class ExtentReportListener  implements ITestListener {
 	public synchronized void onTestSuccess(ITestResult result) {
 		System.out.println((result.getMethod().getMethodName() + " passed!"));
 		test.get().pass("Test passed");
+		//test.get().pass(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(getScreenshot()).build());
 		test.get().getModel().setEndTime(getTime(result.getEndMillis()));
 	}
 
 	public synchronized void onTestFailure(ITestResult result) {
 		System.out.println((result.getMethod().getMethodName() + " failed!"));
+		//test.get().fail(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(getScreenshot()).build());
 		test.get().getModel().setEndTime(getTime(result.getEndMillis()));
 	}
 
 	public synchronized void onTestSkipped(ITestResult result) {
 		System.out.println((result.getMethod().getMethodName() + " skipped!"));
+		//test.get().skip(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(getScreenshot()).build());
 		test.get().getModel().setEndTime(getTime(result.getEndMillis()));
 	}
 
@@ -115,4 +111,8 @@ public class ExtentReportListener  implements ITestListener {
 		calendar.setTimeInMillis(millis);
 		return calendar.getTime();
 	}
+
 }
+
+
+

@@ -1,0 +1,22 @@
+{
+    "gender": "male",
+    "dob": "01-01-1990",
+    "email": "naveen1@gmail.com",
+    "phone": "90000000000",
+    "websites": "https://www.xyz.com",
+    "address": "Hinjewadi Pune",
+    "status": "active",
+    "first_name": "Tom",
+    "last_name": "P",
+    "links": {
+        "self": {
+            "href": "http://sf.com"
+        },
+        "edit": {
+            "href": "http://www.ed.com"
+        },
+        "avatar": {
+            "href": "http://www.av.com"
+        }
+    }
+}

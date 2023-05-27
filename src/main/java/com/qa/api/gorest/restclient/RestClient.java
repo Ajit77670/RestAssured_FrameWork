@@ -48,7 +48,6 @@ public class RestClient {
 	
 	
 	
-	
 	/**
 	 * THis method is used to call POST API.
 	 * @param contentType
@@ -123,6 +122,8 @@ public class RestClient {
 		
 		//given() declaration which will give RequestSpecification
 		RequestSpecification request;
+		
+		//if we want to generate log/or not
 		if(log) {
 			
 			request =	RestAssured.given().log().all();

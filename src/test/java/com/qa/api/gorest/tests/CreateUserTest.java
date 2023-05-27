@@ -1,5 +1,7 @@
 package com.qa.api.gorest.tests;
 
+import static io.restassured.RestAssured.given;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,9 +27,9 @@ public class CreateUserTest {
 	
 	@DataProvider
 	public Object[][] getUserData() {
-	Object userData[][] = ExcelUtil.getTestData("userdata");
+	Object userData[][] = ExcelUtil.getTestData("userdata"); // userdata is excel sheet name
 	 return userData; 
-	}
+	}  
 	
 	@Description("Create the user using doPost call")
 	@Severity(SeverityLevel.BLOCKER)
@@ -51,6 +53,8 @@ public class CreateUserTest {
 		System.out.println(response.prettyPrint());
 		
 	}
+	
+	
 	
 	
 

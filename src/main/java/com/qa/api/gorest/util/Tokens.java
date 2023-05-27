@@ -66,7 +66,7 @@ public class Tokens {
 	
 
 	// This tokenJson will give you all the required tokens from response body and using any one useful response we can hit our application apis.
-	//i.e we can pass the one of the token from the response bode as header/bearer token and hit our APIs.
+	//i.e we can pass the one of the token from the response body as header/bearer token and hit our APIs.
 	
 	
 	
